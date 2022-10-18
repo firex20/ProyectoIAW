@@ -3,3 +3,14 @@ Author: Pedro Moldenhauer <molden14@gmail.com>
 Date:   Tue Oct 18 12:25:23 2022 +0200
 
     Proyecto vacio
+commit 6b01469b219d6d024c4ff05fa443868941124b86
+Author: Pedro Moldenhauer <molden14@gmail.com>
+Date:   Tue Oct 18 12:30:08 2022 +0200
+
+    Estructura creada
+
+commit 28e89331a5bd2e4ce475caed99502e87384fdb69
+Author: Pedro Moldenhauer <molden14@gmail.com>
+Date:   Tue Oct 18 12:25:23 2022 +0200
+
+    Proyecto vacio
