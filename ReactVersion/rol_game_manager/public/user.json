@@ -1,0 +1,14 @@
+{
+ "Anonimo":{
+    "nick":"Anonimo",
+    "pass":"nul",
+    "name":"Anonimo",
+    "surname":"Anon"
+ },
+ "Pedro":{
+    "nick":"Pedro",
+    "pass":"admin",
+    "name":"Pedro José",
+    "surname":"Moldenahuer López"
+ }  
+}
