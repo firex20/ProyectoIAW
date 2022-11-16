@@ -3,12 +3,19 @@
     "nick":"Anonimo",
     "pass":"nul",
     "name":"Anonimo",
-    "surname":"Anon"
+    "surname":"Anon",
+    "email":"nul"
  },
  "Pedro":{
     "nick":"Pedro",
     "pass":"admin",
     "name":"Pedro José",
-    "surname":"Moldenahuer López"
- }  
+    "surname":"Moldenahuer López",
+    "email":"pmollop@g.educaand.es"
+ },
+ "System":{
+   "emails":{
+      "pmollop@g.educaand.es":"Pedro"
+   }
+ }
 }

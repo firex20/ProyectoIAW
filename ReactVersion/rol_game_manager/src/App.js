@@ -11,6 +11,8 @@ function App() {
 
   const [logged, setLogged] = useState(false)
 
+  const [register, setRegister] = useState(false)
+
   const [alert, setAlert] = useState(false)
 
   const [alertMsg, setAlertMsg] = useState("error")
@@ -43,8 +45,27 @@ function App() {
         setAlert(true)
       }
     }else{
-      setAlertMsg("No existe el usuario!")
-      setAlert(true)
+      if(usr.System.emails.hasOwnProperty(username)){
+        username=usr.System.emails[username]
+        if (usr[username].pass === password){
+          setUser(usr[username])
+          setLogged(true)
+        }else{
+          setAlertMsg("Contraseña incorrecta!")
+          setAlert(true)
+        }
+      }else{
+        setAlertMsg("No existe el usuario!")
+        setAlert(true)
+      }
+    }
+  }
+
+  const Register = () =>{
+    if (register === true) {
+
+    }else{
+      setRegister(true)
     }
   }
 
@@ -56,11 +77,11 @@ function App() {
         backdrop="static" 
         titulo="Inicia sesión" 
         cabecera={<Button variant="light" onClick={() => {Loggin("Anonimo", "nul")}}>Continuar como anónimo</Button>}
-        cuerpo={<Login />} 
+        cuerpo={<Login register={register}/>} 
         pie={
           <>
             <Alerta style={{height: "35px", paddingBottom: "10px", paddingTop: "5px", width: "45%"}} show={alert} msg={alertMsg}/>
-            <LoginButtons logged={logged} setLogged={setLogged} Loggin={Loggin}/>
+            <LoginButtons logged={logged} setLogged={setLogged} Loggin={Loggin} Register={Register} register={register} setRegister={setRegister}/>
           </>
         }
       />
