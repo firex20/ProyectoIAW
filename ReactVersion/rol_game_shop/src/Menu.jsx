@@ -4,7 +4,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import icon from "./icon.png";
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import LoginButtons from './LoginButtons';
 import DefaultProfilePic from './DefaultProfile.png'
@@ -14,7 +13,7 @@ const Menu = ({setLogged, logged, usrname}) => {
     return (
         <>
         {[false].map((expand) => (
-        <Navbar key={expand} bg="dark" variant="dark" expand={expand} className="mb-3">
+        <Navbar key={expand} bg="dark" variant="dark" expand={expand} className="mb-3" fixed='top' sticky='top'>
           <Container fluid>
             <Navbar.Brand href="#home">
               <img
@@ -24,7 +23,7 @@ const Menu = ({setLogged, logged, usrname}) => {
                 height="30"
                 className="d-inline-block align-top"
               />{' '}
-              RolManager
+              RolShop
             </Navbar.Brand>
             <Navbar.Text>
             {logged ? <><img
@@ -42,40 +41,30 @@ const Menu = ({setLogged, logged, usrname}) => {
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-${expand}`}
               aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
-              placement="top"
+              placement="end"
             >
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                  Menu
+                  Menú
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <Nav.Link href="#action1">Home</Nav.Link>
-                  <Nav.Link href="#action2">Link</Nav.Link>
+                  <Nav.Link href="#action1">Noticias</Nav.Link>
+                  <Nav.Link href="#action2">Tienda</Nav.Link>
                   <NavDropdown
-                    title="Dropdown"
+                    title="Carrito"
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
                   >
-                    <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                    <NavDropdown.Item href="#action4">
-                      Another action
+                    <NavDropdown.Item>
+                      Carrito
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
-                    <NavDropdown.Item href="#action5">
-                      Something else here
+                    <NavDropdown.Item>
+                      Boton checkout
                     </NavDropdown.Item>
                   </NavDropdown>
                 </Nav>
-                <Form className="d-flex">
-                  <Form.Control
-                    type="search"
-                    placeholder="Search"
-                    className="me-2"
-                    aria-label="Search"
-                  />
-                  <Button variant="outline-success">Search</Button>
-                </Form>
               </Offcanvas.Body>
             </Navbar.Offcanvas>
           </Container>

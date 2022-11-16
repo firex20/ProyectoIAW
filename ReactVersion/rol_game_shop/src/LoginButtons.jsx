@@ -17,11 +17,16 @@ const LoginButtons = ({logged, setLogged, Loggin, style, Register, register, set
 
     const getRegister = useCallback(() => {
         if (register) {
-
+          const username = document.getElementById("RegisterName").value
+          const usersurname = document.getElementById("RegisterSurname").value
+          const usernick = document.getElementById("RegisterUser").value
+          const useremail = document.getElementById("RegisterEmail").value
+          const userpass = document.getElementById("RegisterPassword").value
+          Register(username, usersurname, usernick, useremail, userpass)
         }else{
           setRegister(true)
         }
-    }, [register, setRegister])
+    }, [register, setRegister, Register])
 
     useEffect(() => {
         const listener = event => {

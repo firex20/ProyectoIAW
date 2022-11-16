@@ -26,14 +26,19 @@ const Login = ({register}) => {
       </Carousel.Item>
       <Carousel.Item>
         <Form>
-          <FloatingLabel
-          controlId="floatingInput"
-          label="Email address"
-          className="mb-3"
-          >
-            <Form.Control type="email" placeholder="name@example.com" />
+          <FloatingLabel controlId="RegisterName" label="Nombre" className="mb-3">
+            <Form.Control type="text" placeholder="Password" />
           </FloatingLabel>
-          <FloatingLabel controlId="floatingPassword" label="Password">
+          <FloatingLabel controlId="RegisterSurname" label="Apellidos" className="mb-3">
+            <Form.Control type="text" placeholder="Password" />
+          </FloatingLabel>
+          <FloatingLabel controlId="RegisterUser" label="Nickname" className="mb-3">
+            <Form.Control type="text" placeholder="Password" />
+          </FloatingLabel>
+          <FloatingLabel controlId="RegisterEmail" label="Email address" className="mb-3">
+            <Form.Control type="email" placeholder="Correo Electronico" />
+          </FloatingLabel>
+          <FloatingLabel controlId="RegisterPassword" label="Contraseña" className="mb-3">
             <Form.Control type="password" placeholder="Password" />
           </FloatingLabel>
         </Form>

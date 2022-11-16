@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./Login";
 import Menu from "./Menu";
 import Popup from "./Popup";
 import Button from 'react-bootstrap/Button';
 import LoginButtons from "./LoginButtons";
 import Alerta from "./Alerta";
+import Pie from "./Pie";
+import Tienda from "./Tienda";
 
 function App() {
 
@@ -61,11 +64,30 @@ function App() {
     }
   }
 
-  const Register = () =>{
-    if (register === true) {
-
-    }else{
-      setRegister(true)
+  const Register = (username, usersurname, usernick, useremail, userpass) =>{
+    if (username.length === 0 || usersurname.length === 0 || usernick.length === 0 || useremail.length === 0 || userpass.length === 0) {
+      setAlertMsg("Faltan datos!")
+      setAlert(true)
+    }else if (userpass.length <= 4) {
+      setAlertMsg("Contraseña muy corta!")
+      setAlert(true)
+    }else if (usr.hasOwnProperty(usernick)) {
+      setAlertMsg("Nickname ocupado")
+      setAlert(true)
+    }else if (usr.System.emails.hasOwnProperty(useremail)){
+      setAlertMsg("Email ya usado")
+      setAlert(true)
+    } else {
+      let newuser = usr
+      newuser[usernick] = {
+        "nick": usernick,
+        "pass": userpass,
+        "name": username,
+        "surname": usersurname,
+        "email": useremail
+      }
+      setUsr(newuser)
+      console.log(usr)
     }
   }
 
@@ -86,7 +108,8 @@ function App() {
         }
       />
       <Menu setLogged={setLogged} logged={logged} usrname={user.name}/>
-      <h1>Hola</h1>
+      <Tienda/>
+      <Pie />
     </div>
   );
 }
