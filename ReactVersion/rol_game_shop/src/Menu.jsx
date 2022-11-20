@@ -1,5 +1,6 @@
 import {LinkContainer} from 'react-router-bootstrap';
 import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -7,11 +8,9 @@ import icon from "./icon.png";
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import LoginButtons from './LoginButtons';
 import DefaultProfilePic from './DefaultProfile.png'
-import { useState } from 'react';
+import Carrito from './Carrito';
 
-const Menu = ({setLogged, logged, usrname}) => {
-
-  const [canvasshow, setCanvasshow] = useState(false)
+const Menu = ({setLogged, logged, usrname, cart, cartitems, cartprice, delfromcart, canvasshow, setCanvasshow, checkout}) => {
 
     return (
         <>
@@ -26,7 +25,8 @@ const Menu = ({setLogged, logged, usrname}) => {
                   width="30"
                   height="30"
                   className="d-inline-block align-top"
-                />{' '}
+                />
+                {' '}
                 RolShop
               </Navbar.Brand>
             </LinkContainer>
@@ -64,15 +64,17 @@ const Menu = ({setLogged, logged, usrname}) => {
                     <Nav.Link onClick={() =>{setCanvasshow(false)}}>Tienda</Nav.Link>
                   </LinkContainer>
                   <NavDropdown
-                    title="Carrito"
+                    title={"Carrito "+cartitems}
                     id={`offcanvasNavbarDropdown-expand-${expand}`}
+                    autoClose={false}
                   >
-                    <NavDropdown.Item>
-                      Carrito
-                    </NavDropdown.Item>
+                    <NavDropdown.ItemText>
+                      <Carrito cart={cart} delfromcart={delfromcart} modifable={true}/>
+                    </NavDropdown.ItemText>
                     <NavDropdown.Divider />
                     <NavDropdown.Item>
-                      Boton checkout
+                      <Button onClick={() => checkout()} style={{ marginRight: "100px"}}>Checkout</Button>
+                      <p style={{ display: "inline", fontWeight: "bold", fontSize: "1.5em", color: "green"}}>{cartprice} €</p>
                     </NavDropdown.Item>
                   </NavDropdown>
                 </Nav>
