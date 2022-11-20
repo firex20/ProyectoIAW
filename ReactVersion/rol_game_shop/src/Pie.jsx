@@ -7,7 +7,7 @@ import emailicon from './emailicon.png'
 const Pie = () => {
 
   return (
-    <Navbar bg="dark" variant="dark" fixed='bottom' >
+    <Navbar bg="dark" variant="dark" fixed='bottom' sticky='bottom'>
         <Container>
           <Navbar.Text>
             <a href='https://twitter.com/FirexPedro' target={"_blank"} rel={"noreferrer"}>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 import Login from "./Login";
 import Menu from "./Menu";
 import Popup from "./Popup";
@@ -9,6 +10,7 @@ import LoginButtons from "./LoginButtons";
 import Alerta from "./Alerta";
 import Pie from "./Pie";
 import Tienda from "./Tienda";
+import Noticias from "./Noticias";
 
 function App() {
 
@@ -24,8 +26,14 @@ function App() {
 
   const [usr, setUsr] = useState({})
 
+  const [cart, setCart] = useState({})
+
+  const [cartitems, setCartitems] = useState(0)
+
+  const [cartprice, setCartprice] = useState(0)
+
   useEffect(() => {
-    fetch("http://localhost:3000/user.json")
+    fetch(process.env.PUBLIC_URL+"/user.json", {method: 'GET', mode: 'no-cors', headers: {'Content-Type': 'application/json'}})
     .then((res) => res.json())
     .then((resj) => setUsr(resj))
   }, [])
@@ -91,6 +99,20 @@ function App() {
     }
   }
 
+  const addtocart = (product, price) =>{
+    let newcart=cart
+    if (newcart.hasOwnProperty(product)) {
+      newcart[product].count += 1
+      newcart[product].tprice = price*product.count
+    }else{
+      newcart[product].count = 1
+      newcart[product].tprice = price*newcart[product].count
+    }
+    setCart(newcart)
+    setCartitems(cartitems+1)
+    setCartprice(cartprice+price)
+  }
+
   return (
     <div>
       <Popup 
@@ -107,8 +129,13 @@ function App() {
           </>
         }
       />
-      <Menu setLogged={setLogged} logged={logged} usrname={user.name}/>
-      <Tienda/>
+      <BrowserRouter>
+        <Menu setLogged={setLogged} logged={logged} usrname={user.name}/>
+        <Routes>
+          <Route path="Tienda" element={<Tienda addtocart={addtocart}/>} />
+          <Route exact path="/RolShop" element={<Noticias/>} />
+        </Routes>
+      </BrowserRouter>
       <Pie />
     </div>
   );
