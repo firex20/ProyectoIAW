@@ -6,8 +6,8 @@ const Producto = ({productinfo, addtocart}) =>{
 
     return (
         <Col>
-            <Card style={{ width: '400px', marginBottom: "10px", marginLeft:"30px", border:"1px solid rgb(233, 110, 216)"}} bg="dark" text="white">
-                <Card.Img variant="top" src={process.env.PUBLIC_URL+"/productimages/"+productinfo.image} style={{height: "200px", objectFit:"scale-down", backgroundColor:"rgb(233, 110, 216)"}}/>
+            <Card className='resaltar' style={{ width: '400px', marginBottom: "15px", marginLeft:"30px", border:"1px solid rgb(233, 110, 216)"}} bg="dark" text="white">
+                <Card.Img variant="top" src={process.env.PUBLIC_URL+"/productimages/"+productinfo.image} style={{height: "190px", objectFit:"scale-down", backgroundColor:"rgb(233, 110, 216)"}}/>
                 <Card.Body>
                     <Card.Title>{productinfo.title}</Card.Title>
                     <Card.Text>{productinfo.text}</Card.Text>

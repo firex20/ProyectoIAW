@@ -15,7 +15,7 @@ const Tienda = ({addtocart}) => {
 
     return (
         <Container fluid>
-            <Row md={4}>
+            <Row md={4} justify="center">
                 {products.map((product, key) =>{ return(<Producto key={key} productinfo={product} addtocart={addtocart}/>)})}
             </Row>
         </Container>

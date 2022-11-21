@@ -108,6 +108,7 @@ function App() {
         "surname": usersurname,
         "email": useremail
       }
+      newuser.System.emails[useremail] = usernick
       setUsr(newuser)
       setAlertMsg("Registrado!")
       setAlertcolor("success")
