@@ -1,0 +1,16 @@
+body {
+    background-image: url("background.png");
+    background-position: top;
+    background-size: contain;
+    margin-top: 50px;
+    padding-top: 40px;
+}
+
+.resaltar {
+    transition: all .2s ease-in-out; 
+}
+
+.resaltar:hover {
+    transform: scale(1.1);
+    z-index: 2;
+}
