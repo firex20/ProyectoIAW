@@ -11,7 +11,9 @@ const Producto = ({productinfo, addtocart}) =>{
                 <Card.Body>
                     <Card.Title>{productinfo.title}</Card.Title>
                     <Card.Text>{productinfo.text}</Card.Text>
-                    <Button onClick={() => {addtocart(productinfo.title, productinfo.price)}} variant="light">Añadir al carrito</Button>
+                    <Button onClick={() => {
+                        addtocart(productinfo.title, productinfo.price)
+                    }} variant="light">Añadir al carrito</Button>
                     <p style={{ display: "inline", fontWeight: "bold", fontSize: "1.5em", marginLeft: "150px"}}>{productinfo.price} €</p>
                 </Card.Body>
             </Card>

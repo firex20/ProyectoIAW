@@ -24,14 +24,14 @@
             $usrName = $userCred['nick'];
             $usrEmail = $userCred['email'];
             $usrPass = $userCred['pass'];
-            $sql = "SELECT nick, name, surname, email FROM Users WHERE (nick = '$usrName' OR email = '$usrEmail') AND pass = '$usrPass'";
+            $sql = "SELECT nick, name, surname, email, pass FROM Users WHERE (nick = '$usrName' OR email = '$usrEmail') AND pass = '$usrPass'";
 
             $res = $this->conex->query($sql);
             if ($res->num_rows > 0) {
                 $user = $res->fetch_assoc();
                 $push = array("res" => 0, "user" => $user);
             } else {
-                $sql = "SELECT nick, name, surname, email FROM Users WHERE nick = '$usrName' OR email = '$usrEmail'";
+                $sql = "SELECT nick FROM Users WHERE nick = '$usrName' OR email = '$usrEmail'";
                 $res = $this->conex->query($sql);
                 if ($res->num_rows > 0) {
                     $push = array("res" => 1, "user" => "null");

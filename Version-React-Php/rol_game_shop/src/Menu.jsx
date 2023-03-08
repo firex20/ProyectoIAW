@@ -10,7 +10,7 @@ import LoginButtons from './LoginButtons';
 import DefaultProfilePic from './DefaultProfile.png'
 import Carrito from './Carrito';
 
-const Menu = ({setLogged, logged, usrname, cart, cartitems, cartprice, delfromcart, canvasshow, setCanvasshow, checkout}) => {
+const Menu = ({setLogged, logged, usrname, cart, delfromcart, canvasshow, setCanvasshow, checkout, phpUrl, remember, cartitems, cartprice}) => {
 
     return (
         <>
@@ -40,7 +40,7 @@ const Menu = ({setLogged, logged, usrname, cart, cartitems, cartprice, delfromca
                 style={{float: "left", marginTop: "5px"}}
               />
               <p style={{float: "left", fontSize: "30px", marginTop: "1px", marginBottom: "1px", marginLeft: "15px", marginRight: "10px", height: "20px"}}>Hola {usrname}!</p>
-              <LoginButtons logged="false" setLogged={setLogged} style={{marginTop: "5px", float: "left"}}/></> : ""}
+              <LoginButtons remember={remember} phpUrl={phpUrl} logged="false" setLogged={setLogged} style={{marginTop: "5px", float: "left"}}/></> : ""}
             </Navbar.Text>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() =>{setCanvasshow(!canvasshow)}}/>
             <Navbar.Offcanvas

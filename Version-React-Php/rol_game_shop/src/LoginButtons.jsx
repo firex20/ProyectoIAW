@@ -2,14 +2,14 @@ import Button from 'react-bootstrap/Button';
 import { useEffect } from "react";
 import { useCallback } from 'react';
 
-const LoginButtons = ({logged, setLogged, Loggin, style, Register, register, setRegister}) => {
+const LoginButtons = ({logged, setLogged, Loggin, style, Register, register, setRegister, phpUrl, remember}) => {
 
     const getLoggin = useCallback(() => {
       if (!register) {
         const user = document.getElementById("LogginUser").value
         const pass = document.getElementById("LogginPassword").value
         const remember = document.getElementById("LogginRemember").checked
-        Loggin(user, pass)
+        Loggin(user, pass, remember)
       }else{
         setRegister(false)
       }
@@ -27,6 +27,29 @@ const LoginButtons = ({logged, setLogged, Loggin, style, Register, register, set
           setRegister(true)
         }
     }, [register, setRegister, Register])
+
+    const closeSession = () => {
+      const request = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({ action: 'closeSession' }),
+        credentials: 'include'
+      }
+      
+      if (phpUrl !== '') {
+        if (remember === true){
+          fetch(phpUrl, request)
+          .then((res) => res.json())
+          .then((resj) => {
+            setLogged(false)
+            window.location.reload(false);
+          })
+        } else {
+          setLogged(false);
+          window.location.reload(false);
+        }
+      }
+    }
 
     useEffect(() => {
         const listener = event => {
@@ -53,7 +76,7 @@ const LoginButtons = ({logged, setLogged, Loggin, style, Register, register, set
             </>
         :
             <>
-                <Button onClick={() => {setLogged(false)}} variant="dark" style={style}>Cerrar sesion</Button>
+                <Button onClick={() => {closeSession()}} variant="dark" style={style}>Cerrar sesion</Button>
             </>
     )
 }

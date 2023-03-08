@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
@@ -39,7 +39,19 @@ function App() {
 
   const [showcheckout, setShowcheckout] = useState(false)
 
-  const [phpUrl, setPhpUrl] = useState ('')
+  const [phpUrl, setPhpUrl] = useState('')
+
+  const [remember, setRemember] = useState()
+
+  const addToSession = useCallback( (name, parameter) =>{
+    const request = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({ action: 'addToSession', parameter: parameter, name: name }),
+      credentials: 'include'
+    }
+      fetch(phpUrl, request)
+  }, [phpUrl])
 
   useEffect(() => {
     fetch(process.env.PUBLIC_URL+"/conexion.json")
@@ -50,6 +62,38 @@ function App() {
   }, [])
 
   useEffect(() => {
+
+    const request = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json'},
+      body: JSON.stringify({ action: 'getSession' }),
+      credentials: 'include'
+    }
+
+    if (phpUrl !== '') {
+      fetch(phpUrl, request)
+      .then((res) => res.json())
+      .then((resj) => {
+        if (resj.response) {
+          setUser(resj.session.user)
+          setRemember(resj.session.remember)
+          setLogged(true)
+          if (resj.session.cart) {
+            setCart(resj.session.cart)
+            setCartprice(resj.session.cartprice)
+            setCartitems(resj.session.cartitems)
+          }
+        }
+      }).catch((error) => {
+        setAlertMsg("Error "+error)
+        setAlertcolor("danger")
+        setAlert(true)
+      })
+    }
+
+  }, [phpUrl])
+
+  useEffect(() => {
     const timeout = setInterval(() => {
        if (alert === true) {
           setAlert(false)
@@ -57,18 +101,32 @@ function App() {
     }, 4000);return () => clearInterval(timeout)
   }, [alert])
 
-  const Loggin = (username, password) => {
+  useEffect(() => {
+    if (remember === true) {
+      addToSession('cartitems', cartitems)
+    }
+  }, [cartitems, remember, addToSession])
+
+  useEffect(() => {
+    if (remember === true) {
+      addToSession('cartprice', cartprice)
+    }
+  }, [cartprice, remember, addToSession])
+
+  const Loggin = (username, password, remembered) => {
 
     let userCred = {
       nick:username,
       email:username,
-      pass:password
+      pass:password,
+      remember:remembered
     }
 
     const request = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify({ action: 'loggin', userCred: userCred })
+      body: JSON.stringify({ action: 'loggin', userCred: userCred }),
+      credentials: 'include'
     }
 
     fetch(phpUrl, request)
@@ -77,6 +135,7 @@ function App() {
       if (resj.response === 0) {
         setUser(resj.user)
         setLogged(true)
+        setRemember(remembered)
       }else if (resj.response === 1) {
         setAlertMsg("Contraseña incorrecta!")
         setAlertcolor("danger")
@@ -140,8 +199,9 @@ function App() {
       newcart[product].tprice = price*newcart[product].count
     }
     setCart(newcart)
-    setCartitems(cartitems+1)
+    setCartitems(cartitems+1) && console.log(cartitems)
     setCartprice(cartprice+parseInt(price))
+    addToSession('cart', cart)
   }
 
   const delfromcart = (product, price) => {
@@ -154,6 +214,7 @@ function App() {
       delete newcart[product]
     }
     setCart(newcart)
+    addToSession('cart', cart)
   }
 
   const checkout = () => {
@@ -167,12 +228,12 @@ function App() {
         visible={!logged} 
         backdrop="static" 
         titulo="Inicia sesión" 
-        cabecera={<Button variant="light" onClick={() => {Loggin("Anonimo", "null")}}>Continuar como anónimo</Button>}
+        cabecera={<Button variant="light" onClick={() => {Loggin("Anonimo", "null", false)}}>Continuar como anónimo</Button>}
         cuerpo={<Login register={register}/>} 
         pie={
           <>
             <Alerta style={{height: "35px", paddingBottom: "10px", paddingTop: "5px", width: "45%"}} show={alert} msg={alertMsg} color={alertcolor}/>
-            <LoginButtons logged={logged} setLogged={setLogged} Loggin={Loggin} Register={Register} register={register} setRegister={setRegister}/>
+            <LoginButtons remember={remember} logged={logged} setLogged={setLogged} Loggin={Loggin} Register={Register} register={register} setRegister={setRegister} phpUrl={phpUrl}/>
           </>
         }
       />
@@ -190,7 +251,7 @@ function App() {
           }
       />
       <BrowserRouter>
-        <Menu setLogged={setLogged} logged={logged} usrname={user.name} cart={cart} cartitems={cartitems} cartprice={cartprice} delfromcart={delfromcart} canvasshow={canvasshow} setCanvasshow={setCanvasshow} checkout={checkout}/>
+        <Menu remember={remember} phpUrl={phpUrl} setLogged={setLogged} logged={logged} usrname={user.name} cart={cart} cartitems={cartitems} cartprice={cartprice} delfromcart={delfromcart} canvasshow={canvasshow} setCanvasshow={setCanvasshow} checkout={checkout}/>
         <Routes>
           <Route path="Tienda" element={<Tienda addtocart={addtocart}/>} />
           <Route exact path="/RolShop" element={<Noticias/>} />
