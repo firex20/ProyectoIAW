@@ -42,6 +42,45 @@
             return $push;
         }
 
+        public function Register($userReg) {
+            $usrNick = $userReg['nick'];
+            $usrEmail = $userReg['email'];
+            $usrPass = $userReg['pass'];
+            $usrName = $userReg['name'];
+            $usrSurnName = $userReg['surname'];
+            $sql = "INSERT INTO Users VALUES ('$usrNick', '$usrPass', '$usrName', '$usrSurnName', '$usrEmail')";
+
+            $res = $this->conex->query($sql);
+            if ($res) {
+                $push = true;
+            } else {
+                $push = false;
+            }
+            return $push;
+        }
+
+        public function CheckNick($nick) {
+            $sql = "SELECT * FROM Users WHERE nick = '$nick'";
+
+            $res = $this->conex->query($sql);
+            if ($res->num_rows > 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        public function CheckEmail($email) {
+            $sql = "SELECT * FROM Users WHERE email = '$email'";
+
+            $res = $this->conex->query($sql);
+            if ($res->num_rows > 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
         public function closeConex() {
             $this->conex->close();
         }

@@ -27,8 +27,6 @@ function App() {
 
   const [user, setUser] = useState({})
 
-  const [usr, setUsr] = useState({})
-
   const [canvasshow, setCanvasshow] = useState(false)
 
   const [cart, setCart] = useState({})
@@ -161,28 +159,44 @@ function App() {
       setAlertMsg("Contraseña muy corta!")
       setAlertcolor("danger")
       setAlert(true)
-    }else if (usr.hasOwnProperty(usernick)) {
-      setAlertMsg("Nickname ocupado")
-      setAlertcolor("danger")
-      setAlert(true)
-    }else if (usr.System.emails.hasOwnProperty(useremail)){
-      setAlertMsg("Email ya usado")
-      setAlertcolor("danger")
-      setAlert(true)
     } else {
-      let newuser = usr
-      newuser[usernick] = {
-        "nick": usernick,
-        "pass": userpass,
-        "name": username,
-        "surname": usersurname,
-        "email": useremail
+
+      let userReg = {
+        nick: usernick,
+        pass: userpass,
+        name: username,
+        surname: usersurname,
+        email: useremail
       }
-      newuser.System.emails[useremail] = usernick
-      setUsr(newuser)
-      setAlertMsg("Registrado!")
-      setAlertcolor("success")
-      setAlert(true)
+  
+      const request = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify({ action: 'register', userReg: userReg }),
+        credentials: 'include'
+      }
+  
+      fetch(phpUrl, request)
+      .then((res) => res.json())
+      .then((resj) => {
+        if (resj.response === 0){
+          setAlertMsg("Registrado!")
+          setAlertcolor("success")
+          setAlert(true)
+        } else if (resj.response === 1) {
+          setAlertMsg("Nickname ocupado")
+          setAlertcolor("danger")
+          setAlert(true)
+        } else if (resj.response === 2) {
+          setAlertMsg("Email ya usado")
+          setAlertcolor("danger")
+          setAlert(true)
+        } else {
+          setAlertMsg("Algo salio mal :(")
+          setAlertcolor("danger")
+          setAlert(true)
+        }
+      })
     }
   }
 
@@ -217,6 +231,12 @@ function App() {
     addToSession('cart', cart)
   }
 
+  const resetcart = () => {
+    setCart({})
+    setCartitems(0)
+    setCartprice(0)
+  }
+
   const checkout = () => {
     setShowcheckout(true)
   }
@@ -233,7 +253,7 @@ function App() {
         pie={
           <>
             <Alerta style={{height: "35px", paddingBottom: "10px", paddingTop: "5px", width: "45%"}} show={alert} msg={alertMsg} color={alertcolor}/>
-            <LoginButtons remember={remember} logged={logged} setLogged={setLogged} Loggin={Loggin} Register={Register} register={register} setRegister={setRegister} phpUrl={phpUrl}/>
+            <LoginButtons resetcart={resetcart} remember={remember} logged={logged} setLogged={setLogged} Loggin={Loggin} Register={Register} register={register} setRegister={setRegister} phpUrl={phpUrl}/>
           </>
         }
       />
@@ -251,7 +271,7 @@ function App() {
           }
       />
       <BrowserRouter>
-        <Menu remember={remember} phpUrl={phpUrl} setLogged={setLogged} logged={logged} usrname={user.name} cart={cart} cartitems={cartitems} cartprice={cartprice} delfromcart={delfromcart} canvasshow={canvasshow} setCanvasshow={setCanvasshow} checkout={checkout}/>
+        <Menu resetcart={resetcart} remember={remember} phpUrl={phpUrl} setLogged={setLogged} logged={logged} usrname={user.name} cart={cart} cartitems={cartitems} cartprice={cartprice} delfromcart={delfromcart} canvasshow={canvasshow} setCanvasshow={setCanvasshow} checkout={checkout}/>
         <Routes>
           <Route path="Tienda" element={<Tienda addtocart={addtocart}/>} />
           <Route exact path="/RolShop" element={<Noticias/>} />

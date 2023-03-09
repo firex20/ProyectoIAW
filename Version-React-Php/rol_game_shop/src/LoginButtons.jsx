@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import { useEffect } from "react";
 import { useCallback } from 'react';
 
-const LoginButtons = ({logged, setLogged, Loggin, style, Register, register, setRegister, phpUrl, remember}) => {
+const LoginButtons = ({resetcart, logged, setLogged, Loggin, style, Register, register, setRegister, phpUrl, remember}) => {
 
     const getLoggin = useCallback(() => {
       if (!register) {
@@ -42,12 +42,11 @@ const LoginButtons = ({logged, setLogged, Loggin, style, Register, register, set
           .then((res) => res.json())
           .then((resj) => {
             setLogged(false)
-            window.location.reload(false);
           })
         } else {
           setLogged(false);
-          window.location.reload(false);
         }
+        resetcart()
       }
     }
 

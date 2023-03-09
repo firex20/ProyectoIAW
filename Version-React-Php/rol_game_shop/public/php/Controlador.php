@@ -18,6 +18,25 @@
             $push = array("response" => $dbres['res'], "user" => $dbres['user']);
             echo json_encode($push);
             break;
+        case 'register':
+            $ConexionDB = new ConexionDB();
+            if ($ConexionDB->CheckNick($data['userReg']['nick'])) {
+                if ($ConexionDB->CheckEmail($data['userReg']['email'])) {
+                    $dbres = $ConexionDB->Register($data['userReg']);
+                    if ($dbres) {
+                        $push = array("response" => 0);
+                    } else {
+                        $push = array("response" => 3);
+                    }
+                } else {
+                    $push = array("response" => 2);
+                }
+            } else {
+                $push = array("response" => 1);
+            }
+            $ConexionDB->closeConex();
+            echo json_encode($push);
+            break;
         case 'getSession':
             if (isset($_SESSION['user'])) {
                 $push = array("response" => true, "session" => $_SESSION);
