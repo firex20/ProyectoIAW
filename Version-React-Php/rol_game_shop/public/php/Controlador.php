@@ -54,5 +54,11 @@
             $push = array("response" => true);
             echo json_encode($push);
             break;
+        case 'getProducts':
+            $ConexionDB = new ConexionDB();
+            $push = $ConexionDB->getProducts();
+            $ConexionDB->closeConex();
+            echo json_encode($push);
+            break;
     }
 ?>

@@ -81,6 +81,20 @@
             }
         }
 
+        public function getProducts() {
+            $products = array();
+            $sql = "SELECT * FROM Products";
+
+            $res = $this->conex->query($sql);
+            $tupla = $res->fetch_assoc();
+            while ($tupla != null) {
+                $product = array(...$tupla);
+                array_push($products, $product);
+                $tupla = $res->fetch_assoc();
+            }
+            return $products;
+        }
+
         public function closeConex() {
             $this->conex->close();
         }
