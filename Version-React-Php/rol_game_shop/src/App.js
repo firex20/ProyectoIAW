@@ -274,7 +274,7 @@ function App() {
         <Menu resetcart={resetcart} remember={remember} phpUrl={phpUrl} setLogged={setLogged} logged={logged} usrname={user.name} cart={cart} cartitems={cartitems} cartprice={cartprice} delfromcart={delfromcart} canvasshow={canvasshow} setCanvasshow={setCanvasshow} checkout={checkout}/>
         <Routes>
           <Route path="Tienda" element={<Tienda phpUrl={phpUrl} addtocart={addtocart}/>} />
-          <Route exact path="/" element={<Noticias/>} />
+          <Route exact path="/" element={<Noticias phpUrl={phpUrl}/>} />
         </Routes>
       </BrowserRouter>
       <Pie />

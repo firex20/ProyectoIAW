@@ -3,18 +3,28 @@ import Carousel from 'react-bootstrap/Carousel';
 import { useState, useEffect } from "react";
 
 
-const Noticias = () =>{
+const Noticias = ({phpUrl}) =>{
 
   const [notices, setNotices] = useState([])
 
   useEffect(() => {
-    fetch(process.env.PUBLIC_URL+"/notices/notices.json", {method: 'GET', mode: 'no-cors', headers: {'Content-Type': 'application/json'}})
-    .then((res) => res.json())
-    .then((resjson) => setNotices(resjson))
-}, [])
+      const request = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json'},
+          body: JSON.stringify({ action: 'getNotices' }),
+          credentials: 'include'
+      }
+
+      fetch(phpUrl, request)
+      .then((res) => res.json())
+      .then((resj) => {
+          setNotices(resj)
+          console.log(resj)
+      })
+  }, [phpUrl])
 
     return(
-        <Container fluid>
+        (notices !== []) && <Container fluid>
             <Carousel fade style={{ width: "95vw", height:"83.5vh", marginLeft: "36px"}}>
             {notices.map((notice, key) => {return(
               <Carousel.Item key={key} style={{border: "2px solid rgb(233, 110, 216)", borderRadius: "10px"}}>

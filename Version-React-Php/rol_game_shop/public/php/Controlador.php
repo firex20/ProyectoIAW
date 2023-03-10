@@ -60,5 +60,11 @@
             $ConexionDB->closeConex();
             echo json_encode($push);
             break;
+        case 'getNotices':
+            $ConexionDB = new ConexionDB();
+            $push = $ConexionDB->getNotices();
+            $ConexionDB->closeConex();
+            echo json_encode($push);
+            break;
     }
 ?>

@@ -95,6 +95,20 @@
             return $products;
         }
 
+        public function getNotices() {
+            $notices = array();
+            $sql = "SELECT * FROM Notices";
+
+            $res = $this->conex->query($sql);
+            $tupla = $res->fetch_assoc();
+            while ($tupla != null) {
+                $notice = array(...$tupla);
+                array_push($notices, $notice);
+                $tupla = $res->fetch_assoc();
+            }
+            return $notices;
+        }
+
         public function closeConex() {
             $this->conex->close();
         }
