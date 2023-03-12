@@ -11,15 +11,12 @@ const Noticias = ({phpUrl}) =>{
       const request = {
           method: 'POST',
           headers: { 'Content-Type': 'application/json'},
-          body: JSON.stringify({ action: 'getNotices' }),
-          credentials: 'include'
+          body: JSON.stringify({ action: 'getNotices' })
       }
-
       fetch(phpUrl, request)
       .then((res) => res.json())
       .then((resj) => {
-          setNotices(resj)
-          console.log(resj)
+        setNotices(resj)
       })
   }, [phpUrl])
 

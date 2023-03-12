@@ -17,7 +17,7 @@ const Menu = ({resetcart, setLogged, logged, usrname, cart, delfromcart, canvass
         {[false].map((expand) => (
         <Navbar key={expand} bg="dark" variant="dark" expand={expand} className="mb-3" fixed='top'>
           <Container fluid>
-            <LinkContainer to="/">
+            <LinkContainer to="/RolShopPhp">
               <Navbar.Brand href="#home">
                 <img
                   alt="Inicio"
@@ -57,10 +57,10 @@ const Menu = ({resetcart, setLogged, logged, usrname, cart, delfromcart, canvass
               </Offcanvas.Header>
               <Offcanvas.Body>
                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                  <LinkContainer to="/">
+                  <LinkContainer to="/RolShopPhp">
                     <Nav.Link onClick={() =>{setCanvasshow(false)}}>Noticias</Nav.Link>
                   </LinkContainer>
-                  <LinkContainer to="Tienda">
+                  <LinkContainer to="/RolShopPhp/Tienda">
                     <Nav.Link onClick={() =>{setCanvasshow(false)}}>Tienda</Nav.Link>
                   </LinkContainer>
                   <NavDropdown

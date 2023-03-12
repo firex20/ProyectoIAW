@@ -11,8 +11,7 @@ const Tienda = ({addtocart, phpUrl}) => {
         const request = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify({ action: 'getProducts' }),
-            credentials: 'include'
+            body: JSON.stringify({ action: 'getProducts' })
         }
 
         fetch(phpUrl, request)

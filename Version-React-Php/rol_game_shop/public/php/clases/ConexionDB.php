@@ -88,7 +88,7 @@
             $res = $this->conex->query($sql);
             $tupla = $res->fetch_assoc();
             while ($tupla != null) {
-                $product = array(...$tupla);
+                $product = array("title" => $tupla['title'], "text" => $tupla['text'], "image" => $tupla['image'], "price" => $tupla['price']);
                 array_push($products, $product);
                 $tupla = $res->fetch_assoc();
             }
@@ -102,7 +102,7 @@
             $res = $this->conex->query($sql);
             $tupla = $res->fetch_assoc();
             while ($tupla != null) {
-                $notice = array(...$tupla);
+                $notice = array("title" => $tupla['title'], "body" => $tupla['body'], "image" => $tupla['image']);
                 array_push($notices, $notice);
                 $tupla = $res->fetch_assoc();
             }
