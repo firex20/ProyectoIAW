@@ -12,13 +12,3 @@ Proyecto creado para la clase de IAW en el ciclo formativo ASIR
     - ~~Migrar articulos de la tienda a la base de datos de mariadb~~
     - ~~Migrar noticias a la base de datos de mariadb~~
 
-+ Nuevas features
-    - Permitir cambiar la foto de avatar
-    - Guardar pedidos en la base de datos
-    - Pagina de perfil con pedidos y datos del usuario
-    - Version de administracion de la pagina
-        - Gestion de noticias
-        - Gestion de articulos
-        - Gestion de usuarios
-    - Chat de usuarios
-
